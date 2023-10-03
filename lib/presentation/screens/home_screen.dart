@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:toys/model/category.dart';
 
-import '../model/garranty.dart';
+import '../model/warranty.dart';
 import '../widgets/Appbar_container.dart';
 import '../widgets/brand_container.dart';
 import '../widgets/garranty_container.dart';

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../model/garranty.dart';
+import '../../domain/models/warranty.dart';
 
-class GarrantyContainer extends StatelessWidget {
-  const GarrantyContainer({
+
+class WarrantyContainer extends StatelessWidget {
+  const WarrantyContainer({
     super.key,
   });
 
@@ -24,7 +25,7 @@ class GarrantyContainer extends StatelessWidget {
                     Radius.circular(40),
                   ),
                   child: Image.asset(
-                    'assets/images/${garranty[index].imageUrl}',
+                    'assets/images/${warranty[index].imageUrl}',
                     height: 50,
                   ),
                 ),
@@ -33,13 +34,13 @@ class GarrantyContainer extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                garranty[index].name,
+                warranty[index].name,
                 style: const TextStyle(fontSize: 13),
               )
             ],
           );
         },
-        itemCount: garranty.length,
+        itemCount: warranty.length,
       ),
     );
   }
