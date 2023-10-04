@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SearchBox extends StatelessWidget {
   const SearchBox({
     super.key,
@@ -7,8 +8,7 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
         children: [
           const Expanded(
@@ -24,12 +24,10 @@ class SearchBox extends StatelessWidget {
                   hintText: 'جستجوی شگفت انگیز',
                   hintStyle: TextStyle(height: 2.5),
                   border: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.amber, width: 1),
+                    borderSide: BorderSide(color: Colors.amber, width: 1),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(width: 1, color: Colors.amber),
+                    borderSide: BorderSide(width: 1, color: Colors.amber),
                   ),
                 ),
               ),

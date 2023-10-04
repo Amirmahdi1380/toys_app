@@ -1,20 +1,20 @@
-class Garranty {
+class Warranty {
   final String imageUrl;
   final String name;
 
-  Garranty({required this.imageUrl, required this.name});
+  Warranty({required this.imageUrl, required this.name});
 }
 
-List<Garranty> garranty = [
-  Garranty(
+List<Warranty> warranty = [
+  Warranty(
     imageUrl: 'ga_2.jpg',
     name: 'ضمانت بازگشت کالا',
   ),
-  Garranty(
+  Warranty(
     imageUrl: 'ga_1.jpg',
     name: 'پشتیبانی ۲۴ساعته',
   ),
-  Garranty(
+  Warranty(
     imageUrl: 'ga_3.jpg',
     name: 'ضمانت سلامت',
   ),

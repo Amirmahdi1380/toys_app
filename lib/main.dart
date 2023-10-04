@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toys/screen/toys.dart';
+import 'package:toys/presentation/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +15,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: Toys(),
+    return const MaterialApp(
+      home: MainScreen(),
     );
   }
 }

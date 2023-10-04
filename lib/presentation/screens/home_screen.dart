@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:toys/model/category.dart';
+import 'package:toys/config/config.dart';
+import 'package:toys/presentation/widgets/category_item_widget.dart';
 
-import '../model/warranty.dart';
-import '../widgets/Appbar_container.dart';
+import '../../domain/models/category.dart';
+import '../widgets/appbar_container.dart';
 import '../widgets/brand_container.dart';
-import '../widgets/garranty_container.dart';
 import '../widgets/search_box.dart';
+import '../widgets/warranty_container.dart';
 
-class Toys extends StatefulWidget {
-  const Toys({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Toys> createState() => _ToysState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 PageController _pageController = PageController();
 int _currentPage = 0;
 
-class _ToysState extends State<Toys> {
+class _HomeScreenState extends State<HomeScreen> {
   final List<String> appBarImage = [
     '1.png',
     '2.png',
@@ -38,137 +39,125 @@ class _ToysState extends State<Toys> {
     'banner_2.jpg',
     'banner_3.jpg',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              AppBarContainer(appBarImage: appBarImage),
-              const SearchBox(),
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SizedBox(
-                      height: 200,
-                      child: PageView.builder(
-                        itemCount: bannerImage.length,
+        child:
+        Container(
+          margin: EdgeInsets.only(bottom: 32),
+          child:  SingleChildScrollView(
+            child: Column(
+              children: [
+                AppBarContainer(appBarImage: appBarImage),
+                const SearchBox(),
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: smallDistance),
+                      child: SizedBox(
+                        height: 200,
+                        child: PageView.builder(
+                          itemCount: bannerImage.length,
+                          controller: _pageController,
+                          allowImplicitScrolling: true,
+                          onPageChanged: (index) {
+                            setState(() {
+                              _currentPage = index;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Image.asset(
+                                'assets/images/${bannerImage[index]}',
+                                fit: BoxFit.fill,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: MediaQuery.of(context).size.width * 0.45,
+                      bottom: 10,
+                      child: SmoothPageIndicator(
                         controller: _pageController,
-                        allowImplicitScrolling: true,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _currentPage = index;
-                          });
-                        },
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {},
-                            child: Image.asset(
-                              'assets/images/${bannerImage[index]}',
-                              fit: BoxFit.fill,
-                            ),
+                        onDotClicked: (index) {
+                          _pageController.animateToPage(
+                            index,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
                           );
                         },
+                        count: bannerImage.length,
+                        effect: const WormEffect(
+                          dotHeight: 10,
+                          dotWidth: 10,
+                          type: WormType.thin,
+                        ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    left: MediaQuery.of(context).size.width * 0.45,
-                    bottom: 10,
-                    child: SmoothPageIndicator(
-                      controller: _pageController,
-                      onDotClicked: (index) {
-                        _pageController.animateToPage(
-                          index,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                      count: bannerImage.length,
-                      effect: const WormEffect(
-                        dotHeight: 10,
-                        dotWidth: 10,
-                        type: WormType.thin,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'دسته بندی محصولات',
-                      style: TextStyle(fontSize: 18),
                     )
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 102,
-                child: ListView.builder(
-                  reverse: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(15)),
-                            child: Image.asset(
-                              'assets/images/${categories[index].imageUrl}',
-                              height: 70,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          categories[index].name,
-                          style: const TextStyle(fontSize: 16),
-                        )
-                      ],
-                    );
-                  },
-                  itemCount: categories.length,
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: mediumDistance, horizontal: smallDistance),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'دسته بندی محصولات',
+                        style: TextStyle(fontSize: 20),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'برترین برند ها',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
+                SizedBox(
+                  height: 128,
+                  child: ListView.builder(
+                    reverse: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return CategoryItemWidget(category: categories[index]);
+                    },
+                    itemCount: categories.length,
+                  ),
                 ),
-              ),
-              brandContainer(brandImage: brandImage),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'تخفیف ها',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: mediumDistance, horizontal: smallDistance),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'برترین برند ها',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const GarrantyContainer(),
-            ],
+                BrandContainer(brandImage: brandImage),
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: mediumDistance, horizontal: smallDistance),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'تخفیف ها',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+                const WarrantyContainer(),
+                SizedBox(height: 64,)
+              ],
+            ),
           ),
-        ),
+        )
       ),
     );
   }

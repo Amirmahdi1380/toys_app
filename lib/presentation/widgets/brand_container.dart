@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class brandContainer extends StatelessWidget {
-  const brandContainer({
+class BrandContainer extends StatelessWidget {
+  const BrandContainer({
     super.key,
     required this.brandImage,
   });
